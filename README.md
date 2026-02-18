@@ -1,27 +1,27 @@
 # Filament Tabbed Dashboard
 
-Dashboard com abas no Filament via trait. Sem config, usa componentes padrão do Filament.
+Tabbed dashboard for Filament via a trait. No config; uses Filament’s default components.
 
-## Requisitos
+## Requirements
 
 - PHP 8.2+
-- Laravel 11 ou 12
-- Filament 4 ou 5
+- Laravel 11 or 12
+- Filament 4 or 5
 
-## Instalação
+## Installation
 
 ```bash
 composer require alessandro-nuunes/filament-tabbed-dashboard
 ```
 
-O ServiceProvider é registrado automaticamente. Nenhum registro de plugin no painel é obrigatório.
+The ServiceProvider is auto-registered. Registering the plugin on the panel is optional.
 
-## Uso
+## Usage
 
-No seu Dashboard (ex.: `app/Filament/Admin/Pages/Dashboard.php`):
+In your Dashboard (e.g. `app/Filament/Admin/Pages/Dashboard.php`):
 
-1. Use o trait `HasTabbedDashboard`.
-2. Implemente `getTabDefinitions()` com as abas.
+1. Use the `HasTabbedDashboard` trait.
+2. Implement `getTabDefinitions()` with your tabs.
 
 ```php
 use AlessandroNuunes\FilamentTabbedDashboard\HasTabbedDashboard;
@@ -35,15 +35,15 @@ class Dashboard extends Dashboard
     {
         return [
             [
-                'id'      => 'geral',
-                'label'   => 'Geral',
+                'id'      => 'overview',
+                'label'   => 'Overview',
                 'icon'    => 'heroicon-o-home',
                 'widgets' => [StatsOverview::class],
                 'visible' => true,
             ],
             [
-                'id'      => 'outros',
-                'label'   => 'Outros',
+                'id'      => 'analytics',
+                'label'   => 'Analytics',
                 'icon'    => 'heroicon-o-chart-bar',
                 'widgets' => [OtherWidget::class],
                 'visible' => true,
@@ -53,34 +53,34 @@ class Dashboard extends Dashboard
 }
 ```
 
-O trait já define a view do pacote. Opcionalmente você pode estender `AlessandroNuunes\FilamentTabbedDashboard\Pages\TabbedDashboard` e implementar só `getTabDefinitions()`.
+The trait provides the package view. Optionally extend `AlessandroNuunes\FilamentTabbedDashboard\Pages\TabbedDashboard` and implement only `getTabDefinitions()`.
 
-### Estrutura de uma aba
+### Tab structure
 
-| Chave          | Obrigatório | Descrição                          |
-|----------------|-------------|------------------------------------|
-| `id`           | sim         | Identificador único                |
-| `label`        | sim         | Texto da aba                       |
-| `widgets`       | sim         | Array de classes de Widget         |
-| `visible`       | não         | `true` (default) ou `false`       |
-| `icon`         | não         | Ícone Heroicon                     |
-| `badge`        | não         | Número, string ou callable         |
-| `badgeColor`   | não         | Ex.: `'primary'`, `'warning'`      |
-| `badgeTooltip` | não         | Tooltip do badge                   |
+| Key            | Required | Description                    |
+|----------------|----------|--------------------------------|
+| `id`           | yes      | Unique identifier              |
+| `label`        | yes      | Tab label                      |
+| `widgets`      | yes      | Array of Widget classes        |
+| `visible`      | no       | `true` (default) or `false`    |
+| `icon`         | no       | Heroicon name                  |
+| `badge`        | no       | Number, string, or callable    |
+| `badgeColor`   | no       | e.g. `'primary'`, `'warning'`  |
+| `badgeTooltip` | no       | Badge tooltip                  |
 
-## Aparência das abas (opcional)
+## Tab appearance (optional)
 
-Sobrescreva no seu Dashboard:
+Override these methods on your Dashboard:
 
-| Método                      | Padrão   | Efeito                                      |
-|-----------------------------|----------|---------------------------------------------|
-| `getTabbedTabsContained()`  | `false`  | `true` = tabs dentro de uma caixa           |
-| `getTabbedTabsStyle()`      | `'default'` | `'default'`, `'pills'` ou `'boxed'`      |
-| `getTabbedTabsShowIcons()`  | `true`   | `false` = esconde ícones                    |
-| `getTabbedTabsVertical()`   | `false`  | `true` = tabs na vertical                   |
+| Method                     | Default     | Effect                              |
+|----------------------------|-------------|-------------------------------------|
+| `getTabbedTabsContained()` | `false`     | `true` = tabs inside a box          |
+| `getTabbedTabsStyle()`     | `'default'` | `'default'`, `'pills'`, or `'boxed'` |
+| `getTabbedTabsShowIcons()` | `true`      | `false` = hide icons                |
+| `getTabbedTabsVertical()`  | `false`     | `true` = vertical tabs            |
 
-Para `pills` ou `boxed`, o plugin só adiciona a classe CSS `fi-tabbed-dashboard--{style}`. Para mudar o visual, adicione CSS no seu tema (ex.: `resources/css/filament/admin/theme.css`). Sem esse CSS, as abas usam o estilo padrão do Filament.
+For `pills` or `boxed`, the plugin only adds the CSS class `fi-tabbed-dashboard--{style}`. To change the look, add CSS in your theme (e.g. `resources/css/filament/admin/theme.css`). Without that CSS, tabs use Filament’s default style.
 
-## Licença
+## License
 
 MIT.

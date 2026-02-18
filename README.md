@@ -2,6 +2,8 @@
 
 Tabbed dashboard for Filament via a trait. No config; uses Filament’s default components.
 
+![Members Management Interface](screenshots/tabbed.jpg)
+
 ## Requirements
 
 - PHP 8.2+
